@@ -1,20 +1,24 @@
 package com.image.search.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Images")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "imagesCache")
 public class Image {
@@ -23,8 +27,8 @@ public class Image {
     private String author;
     private String camera;
     private String tags;
-    @JsonProperty("cropped_picture")
+    @Column(name = "croppedPictureUrl")
     private String croppedPictureUrl;
-    @JsonProperty("full_picture")
+    @Column(name = "fullPictureUrl")
     private String fullPictureUrl;
 }

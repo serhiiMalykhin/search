@@ -1,4 +1,4 @@
-package com.image.search.model;
+package com.image.search.model.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,6 +2,7 @@ package com.image.search.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.image.search.model.dto.Picture;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

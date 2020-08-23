@@ -1,4 +1,4 @@
-package com.image.search.model;
+package com.image.search.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

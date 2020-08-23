@@ -1,9 +1,9 @@
 package com.image.search.controller;
 
-import com.image.search.model.SearchRequest;
+import com.image.search.model.dto.SearchRequest;
 import com.image.search.model.entity.Image;
 import com.image.search.service.ImageService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/images")
+@RequiredArgsConstructor
 public class ImageController {
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
     @GetMapping("/search")
     public ResponseEntity<List<Image>> searchImages(SearchRequest searchRequest) {

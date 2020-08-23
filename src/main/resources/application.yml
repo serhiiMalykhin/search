@@ -30,7 +30,7 @@ spring:
 
 logging:
   level:
-    com.epam.lab.sdg.common.listener.CacheLogger: ${LOG_LEVEL:DEBUG}
+    com.image.search.listener.CacheLogger: ${LOG_LEVEL:DEBUG}
     org.springframework.transaction.interceptor: ${LOG_LEVEL:DEBUG}
 
 agileengine:

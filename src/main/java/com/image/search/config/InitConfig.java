@@ -1,52 +1,36 @@
 package com.image.search.config;
 
-import com.image.search.model.ImagePaginationResult;
-import com.image.search.model.Picture;
-import com.image.search.model.entity.Image;
-import com.image.search.rest.RestImageClient;
-import com.image.search.service.ImageService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.image.search.model.dto.Picture;
+import com.image.search.rest.ImageClient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Configuration
+@EnableScheduling
+@RequiredArgsConstructor
 public class InitConfig {
 
-    @Autowired
-    private RestImageClient client;
-
-    @Autowired
-    private ImageService imageService;
+    private final ImageClient imageClient;
 
     @PostConstruct
     void init() {
-        List<Picture> pictures = fetchPictures();
-        List<Image> images = fetchImages(pictures);
-        imageService.storeImages(images);
+        fetchImages();
     }
 
-    public List<Picture> fetchPictures() {
-        List<Picture> pictures = new ArrayList<>();
-        int currentPage = 0;
-        ImagePaginationResult result;
-        do {
-            currentPage++;
-            result = client.getPicturesPage(currentPage);
-            if (!result.getPictures().isEmpty()) {
-                pictures.addAll(result.getPictures());
-            }
-        } while (result.getHasMorePages() != null && result.getHasMorePages());
-
-        return pictures;
+    /**
+     * executes every hour
+     */
+    @Scheduled(cron = "0 * */1 ? * *")
+    public void fetchImages() {
+        new Thread(() -> {
+            List<Picture> result = imageClient.fetchPictures();
+            imageClient.fetchImages(result);
+        }).start();
     }
 
-    public List<Image> fetchImages(List<Picture> pictures) {
-        return pictures.stream()
-                .map(picture -> client.getImageById(picture.getId()))
-                .collect(Collectors.toList());
-    }
 }
