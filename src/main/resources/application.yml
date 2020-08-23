@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: agileengine-test
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:mem:image
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region:
+            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+        javax.cache:
+          provider: org.ehcache.jsr107.EhcacheCachingProvider
+          uri: classpath:ehcache.xml
+      javax:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
+
+logging:
+  level:
+    com.epam.lab.sdg.common.listener.CacheLogger: ${LOG_LEVEL:DEBUG}
+    org.springframework.transaction.interceptor: ${LOG_LEVEL:DEBUG}
+
+agileengine:
+  url:
+    base: http://interview.agileengine.com
+    auth: /auth
+    images: /images
+    search: /search
+  auth:
+    apiKey: 23567b218376f79d9415
