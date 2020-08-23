@@ -1,3 +1,6 @@
+#Required:
+java 8, maven
+
 #Build
 1. `mvn clean install` 
 
