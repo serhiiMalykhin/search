@@ -40,4 +40,4 @@ agileengine:
     images: /images
     search: /search
   auth:
-    apiKey: 23567b218376f79d9415
+    apiKey:
